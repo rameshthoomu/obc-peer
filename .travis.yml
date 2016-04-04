@@ -15,7 +15,6 @@ go:
  #- 1.5.2
 
 env:
-
  - GO15VENDOREXPERIMENT=1
 
 before_install:
