@@ -32,7 +32,6 @@ before_install:
  - chmod +x tempsh.sh && sudo ./tempsh.sh
  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test && sudo apt-get -qq update && sudo apt-get -qq install g++-4.8 && sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
 
-
 install:
 
  - sudo pip install --upgrade pip
@@ -62,14 +61,24 @@ script:
 
  - ./obc-peer peer &
  - go test -timeout=20m $(go list github.com/openblockchain/obc-peer/... | grep -v /vendor/ | grep -v /examples/) > build-result.txt
- - chmod +x deploy.sh && sudo ./deploy.sh
+ - | 
+   if grep -q 'FAIL' "/$HOME/gopath/src/github.com/openblockchain/obc-peer/build-result.txt"; then
+   echo "----> Unit Tests Failed"
+   cat /$HOME/gopath/src/github.com/openblockchain/obc-peer/build-result.txt
+   exit 1
+   fi
+ #- chmod +x deploy.sh && sudo ./deploy.sh
  - cat /$HOME/gopath/src/github.com/openblockchain/obc-peer/build-result.txt
+ - echo "----> Unit Tests PASSED"  
  - ps -ef | grep obc-peer | grep -v grep | kill -9 `awk '{print $2}'`
  - cd $HOME/gopath/src/github.com/openblockchain/obc-peer/openchain/peer/bddtests/
  - sed -i -e 's/172.17.0.1:4243\b/'"$ip:$port"'/g' $HOME/gopath/src/github.com/openblockchain/obc-peer/openchain/peer/bddtests/compose-defaults.yml
  #- behave -n  "chaincode example 02 single peer"
  - behave
- - echo " ******* Pushing Docker Images to Docker Hub ***********"
+ - |
+   if [ $? -ne 0 ]; then echo "Behave tests are FAILED" ; exit 1 ; fi
+ - echo "Behave Tests are PASSED"
+ - echo "----> Building Docker Images and Pushing Images to Docker Hub"
  - curl -v http://169.53.62.117/cgi-bin/buildobcimage.sh
 notifications:
  slack: 'openchain:5YSkRUyUTke93O6YkvXjagjg'
