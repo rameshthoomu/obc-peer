@@ -69,12 +69,13 @@ script:
    fi
  #- chmod +x deploy.sh && sudo ./deploy.sh
  - cat /$HOME/gopath/src/github.com/openblockchain/obc-peer/build-result.txt
- - echo "----> Unit Tests PASSED"  
+ - echo "----> Unit Tests are PASSED"
+ - echo "----> Stopping peers process before starting Behave tests"
  - ps -ef | grep obc-peer | grep -v grep | kill -9 `awk '{print $2}'`
  - cd $HOME/gopath/src/github.com/openblockchain/obc-peer/openchain/peer/bddtests/
  - sed -i -e 's/172.17.0.1:4243\b/'"$ip:$port"'/g' $HOME/gopath/src/github.com/openblockchain/obc-peer/openchain/peer/bddtests/compose-defaults.yml
  #- behave -n  "chaincode example 02 single peer"
- - behave
+ - behave -D logs=Y
  - |
    if [ $? -ne 0 ]; then echo "Behave tests are FAILED" ; exit 1 ; fi
  - echo "Behave Tests are PASSED"
