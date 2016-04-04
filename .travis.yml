@@ -44,6 +44,9 @@ install:
  - sudo apt-get update && sudo apt-get install -y libsnappy-dev zlib1g-dev libbz2-dev
  - export CGO_CFLAGS="-I/opt/rocksdb/include"
  - export CGO_LDFLAGS="-L/opt/rocksdb -lrocksdb -lstdc++ -lm -lz -lbz2 -lsnappy"
+ - cd $HOME/gopath/src/github.com/$USER_NAME/fabric/scripts/provision/
+ - chmod +x docker.sh
+ - ./docker.sh 0.0.9
 
 before_script:
 
@@ -71,7 +74,7 @@ script:
  - behave
 
  - echo " ******* Pushing Docker Images to Docker Hub ***********"
- - curl -v http://169.53.62.117/cgi-bin/buildobcimage.sh
+ #- curl -v http://169.53.62.117/cgi-bin/buildobcimage.sh
 notifications:
  slack: 'openchain:5YSkRUyUTke93O6YkvXjagjg'
  email:
