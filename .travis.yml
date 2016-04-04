@@ -74,7 +74,7 @@ script:
  - behave
 
  - echo " ******* Pushing Docker Images to Docker Hub ***********"
- #- curl -v http://169.53.62.117/cgi-bin/buildobcimage.sh
+ - curl -v http://169.53.62.117/cgi-bin/buildobcimage.sh
 notifications:
  slack: 'openchain:5YSkRUyUTke93O6YkvXjagjg'
  email:
