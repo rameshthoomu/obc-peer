@@ -59,7 +59,7 @@ before_script:
 
 script:
 
- - echo "----> Starting Peer Process"
+ - echo "----> Starting Peer Process---<"
  - ./obc-peer peer &
  - go test github.com/openblockchain/obc-peer/openchain/container -run=BuildImage_Peer
  - go test github.com/openblockchain/obc-peer/openchain/container -run=BuildImage_Obcca
