@@ -404,7 +404,7 @@ Feature: lanching 3 peers
         |   docker-compose-4-consensus-noops.yml   |      60      |
         |   docker-compose-4-consensus-classic.yml |      60      |
         |   docker-compose-4-consensus-batch.yml   |      60      |
-        |   docker-compose-4-consensus-sieve.yml   |      60      |
+        |   docker-compose-4-consensus-sieve.yml   |      90      |
 
 
     #@doNotDecompose
