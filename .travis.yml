@@ -59,6 +59,7 @@ before_script:
 
 script:
 
+ - echo "----> Starting Peer Process"
  - ./obc-peer peer &
  - go test -timeout=20m $(go list github.com/openblockchain/obc-peer/... | grep -v /vendor/ | grep -v /examples/) > build-result.txt
  - | 
