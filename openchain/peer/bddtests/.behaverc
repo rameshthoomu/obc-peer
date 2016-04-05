@@ -1,4 +1,4 @@
 [behave]
 tags=~@issue_724
-tags=~@wip
-tags=~@tls
+tags=-@wip
+tags=-@tls
