@@ -79,6 +79,7 @@ script:
  - behave
  - testvar=$? && echo "behave tests exited with $testvar"
  - |
+   echo "Before IF condition $testvar"
    if [ $testvar -ne 0 ] ; then echo "Behave tests are FAILED" ; exit 1 ; fi
  - echo "Behave Tests are PASSED"
  - echo "----> Building Docker Images and Pushing Images to Docker Hub"
