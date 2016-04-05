@@ -78,7 +78,10 @@ script:
  #- behave -n  "chaincode example 02 single peer"
  - behave -D logs=Y
  - |
-   if [ $? -ne 0 ]; then echo "Behave tests are FAILED" ; exit 1 ; fi
+   if  $? -ne 0 ; then 
+   echo "Behave tests are FAILED" 
+   exit 1 
+   fi
  - echo "Behave Tests are PASSED"
  - echo "----> Building Docker Images and Pushing Images to Docker Hub"
  - curl -v http://169.53.62.117/cgi-bin/buildobcimage.sh
